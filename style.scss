@@ -1,0 +1,79 @@
+@use "base-colors";
+@use "mixin-article";
+@use "function-rem" as f;
+@use "sass:color";
+
+%header-class {
+  color: base-colors.$color-green;
+  border-bottom: 1px solid base-colors.$color-blue;
+  margin: f.rem(20px) auto;
+  text-align: center;
+}
+
+body {
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: f.rem(10px);
+    border: f.rem(2px) solid base-colors.$color-red;
+    h1 {
+      @extend %header-class;
+    }
+    h2 {
+      @extend %header-class;
+      border: f.rem(2px) solid base-colors.$color-red;
+      padding: 1rem;
+    }
+    section {
+      display: flex;
+      justify-content: center;
+      width: 95%;
+      &:nth-child(3n) {
+        article {
+          &:nth-child(n + 1) {
+            @include mixin-article.article-mixin(base-colors.$color-blue);
+          }
+          &:nth-child(2n) {
+            @include mixin-article.article-mixin(base-colors.$color-red);
+          }
+        }
+      }
+      &:nth-child(3n + 1) {
+        justify-content: space-between;
+        div {
+          //   background: turquoise;
+          width: f.rem(45px);
+          height: f.rem(45px);
+          display: flex;
+          align-items: flex-start;
+        }
+        @for $bg from 1 through 19 {
+          div:nth-child(#{$bg}) {
+            background: darken(base-colors.$color-white, $bg * 5);
+            color: lighten(base-colors.$color-black, $bg * 5);
+            @if $bg == 10 {
+              background: base-colors.$color-blue;
+              color: base-colors.$color-red;
+            }
+          }
+        }
+        @for $i from 1 through 3 {
+          .fs-#{$i}rem {
+            font-size: $i + rem;
+          }
+        }
+      }
+      &:nth-child(3n + 2) {
+        padding-bottom: f.rem(10px);
+        article {
+          @include mixin-article.article-mixin(
+            base-colors.$color-green,
+            base-colors.$color-blue,
+            24px
+          );
+        }
+      }
+    }
+  }
+}

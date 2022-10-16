@@ -1,0 +1,13 @@
+@use "base-colors";
+
+@mixin article-mixin(
+  $color,
+  $border-color: base-colors.$color-green,
+  $font-size: 1rem
+) {
+  color: $color;
+  border: 1px solid $border-color;
+  font-size: $font-size;
+  padding: 10px;
+  text-align: center;
+}
